@@ -5,6 +5,9 @@ import javax.swing.*;
 
 
 import java.awt.event.*;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 
@@ -20,6 +23,10 @@ public class Game {
 	private Board board;
 	private int turn;
 	private int depth;
+	private boolean readFile;
+	
+	private PrintWriter writer;
+	
 	
 	//Gui parts
 	private JFrame jf;
@@ -35,14 +42,15 @@ public class Game {
 	private Player onTurn, redPlayer, bluePlayer;
 	
 	
- 	public Game(JFrame frame, int m, int n, Player redSolver, Player blueSolver) {
+ 	public Game(JFrame frame, int m, int n, Player redSolver, Player blueSolver, int depth, boolean readFile) {
 		this.jf = frame;
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.m = m;
 		this.n = n;
 		this.redPlayer = redSolver;
 		this.bluePlayer = blueSolver;
-		this.depth = 3; // ------- srediti ovaj deo da se lepo preuzma
+		this.depth = depth;
+		this.readFile = readFile;
 		startGame();
 	}
 	
@@ -52,6 +60,14 @@ public class Game {
 		int boardWidth = n * size + (n-1) *dist;
 		turn = Board.RED;
 		onTurn = redPlayer;
+		
+		try {
+			writer = new PrintWriter("output.txt", "UTF-8");
+			writer.println((m-1) + " " + (n-1));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		
 		//Glavni panel na koji se sve nadodaje
 		JPanel mainPanel = new JPanel(new BorderLayout());
@@ -79,13 +95,16 @@ public class Game {
 	
         // Ubacivanej dugmeta za izlaz
 		JButton endButton = new JButton("End");
-		endButton.addActionListener(e  -> System.exit(0));
+		endButton.addActionListener(e  -> {writer.close(); System.exit(0);});
 		bottomPanel.add(endButton, BorderLayout.SOUTH);
 		
 		mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
 		
 		 JPanel grid = new JPanel(new GridBagLayout());
+		 
+		 
+		 
 		 // ----------------------------------------------------------
 		 
 		 GridBagConstraints constraints = new GridBagConstraints();
@@ -96,7 +115,7 @@ public class Game {
 		 
 		 // ----------------------------------------------------------
 
-		 mainPanel.add(grid, BorderLayout.CENTER);
+		 //mainPanel.add(grid, BorderLayout.CENTER);
 		
 		
 		
@@ -137,21 +156,27 @@ public class Game {
         grid.add(getEmptyLabel(new Dimension(2 * boardWidth, 10)), constraints);
 	
         
+        grid.add(mainPanel);
+        
         jf.getContentPane().removeAll();
         jf.revalidate();
         jf.repaint();
-
-        //jf.setContentPane(grid);
+        
+        jf.setContentPane(grid);
         jf.pack();
         
-        jf.add(mainPanel);
-		jf.setSize(boardWidth*3,boardWidth*3);
+        //jf.add(mainPanel);
+        
+        
+		//jf.setSize();
 		jf.setLocationRelativeTo(null);
 		jf.setVisible(true);
 		
+
 		// Krece igra
 		manageGame();
-	
+		
+		writer.close();
 	}
 	
 	/* Pravljenje manjih grafickih komponenti */
@@ -253,12 +278,47 @@ public class Game {
             for(int j=0; j<n; j++)
                 if(vLines[i][j] == object)
                     return new Line(i,j,false);
+     
+        
         return new Line();
     }
+    
+
+    
+    private String convertTo(Line line, Boolean squareFormed) {
+    	StringBuilder sb = new StringBuilder();
+    	if(line.isHorizontal()) {
+    		sb.append(line.getX());
+    		sb.append((char)('A' + line.getY()));
+    		sb.append(" //");
+    		if(turn == 0)
+    			sb.append("Prvi igrac povlaci liniju");
+    		else
+    			sb.append("Drugi igrac povlaci liniju");
+    		if(squareFormed) {
+    			sb.append(", formira kvadrat i igra ponovo");
+    		}
+    	} else {
+    		sb.append((char)('A' + line.getX()));
+    		sb.append(line.getY());
+    		sb.append(" //");
+    		if(turn == 0)
+    			sb.append("Prvi igrac povlaci liniju");
+    		else
+    			sb.append("Drugi igrac povlaci liniju");
+    		if(squareFormed) {
+    			sb.append(", formira kvadrat i igra ponovo");
+    		}
+    	}
+    	
+		return sb.toString();
+	}
 	
     private void processMove(Line source) {
 		int x = source.getX(), y = source.getY();
 		ArrayList<Point> ret;
+		
+		int beforeScore = turn == Board.RED ? board.getRedScore() :board.getBlueScore();
 		
 		
 		if(source.isHorizontal()) {
@@ -281,6 +341,14 @@ public class Game {
 		redScoreLabel.setText(String.valueOf(board.getRedScore()));
         blueScoreLabel.setText(String.valueOf(board.getBlueScore()));
 		
+		int afterScore = turn == Board.RED ? board.getRedScore() :board.getBlueScore();
+
+		if(beforeScore < afterScore) {
+			writer.println(convertTo(source, true));
+		} else 
+			writer.println(convertTo(source, false));
+
+        
         //Obrada ako smo dosli do kraja
 		if(board.isComplete()) {
 			int winner = board.getWinner();
@@ -312,9 +380,10 @@ public class Game {
 		}
 	}
 
+	
+
 	private void manageGame() {
         while(!board.isComplete()) {
-            //if(goBack) return;
             if(onTurn == null) {
             	mouseEnabled = true;
             }

@@ -18,10 +18,14 @@ public class MediumComputer extends Player {
         
         for(int i = 0; i<moveCount; i++) {
             Board nextBoard = board.getNewBoard(moves.get(i), color);
-            ABtmp tmp = alphabeta(nextBoard, depth, MIN, MAX,false, color);
-            if(tmp.getWeight() > bestScore) { 
+            if(nextBoard.getScore(color) > board.getScore(color)) { 
             	nextMove = i;
-            	System.out.println("\n The value of getWeight is " + tmp.getWeight());
+            	break; // mozemo da zatvorimo pravougaonik
+            }
+            ABtmp tmp = alphabeta(nextBoard, depth, MIN, MAX,false, color);
+            if(tmp.getWeight() > bestScore) {
+            	nextMove = i;
+            	//System.out.println("\n The value of getWeight is " + tmp.getWeight());
             	bestScore = tmp.getWeight();
             }
         }
