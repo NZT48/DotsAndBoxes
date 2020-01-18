@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class EasyComputer extends Player {
 
 	@Override
-	public Line getNextMove(Board board, int color) {
+	public Line getNextMove(Board board, int color, int depth) {
         referenceColor = color;
         ArrayList<Line> moves = board.getAvailableMoves();
         int moveCount = moves.size();

@@ -24,7 +24,7 @@ public class StartPage extends JFrame{
 	
 	public StartPage() {
 		super("Start page!");
-		setLayout(new BorderLayout());
+		setLayout(new GridLayout(6,1));
 		//frame = new JFrame();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(800,800,800,820);
@@ -44,33 +44,34 @@ public class StartPage extends JFrame{
 	
 		
 		
-		placeOnScreen();
+		putOnScreen();
 		
 		
 		setLocationRelativeTo(null);
 		setVisible(true);
 		
 		
+		
 	}
 	
-	public void placeOnScreen() {
+	public void putOnScreen() {
 		JPanel params = new JPanel(new GridLayout(2,2));
 		
 		params.add(nLabel);
-		params.add(nTF);
-		
 		params.add(mLabel);
+		
+		params.add(nTF);
 		params.add(mTF);
 		
-		add(params, BorderLayout.SOUTH);
+		add(params);
 		
 		JPanel north = new JPanel(new FlowLayout());
 		north.add(playerOne);
 		north.add(playerTwo);
 		
-		add(north, BorderLayout.SOUTH);
+		add(north);
 		
-		add(new JLabel("TEST"), BorderLayout.CENTER);
+		add(new JLabel("TEST"));
 
 
 

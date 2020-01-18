@@ -22,6 +22,6 @@ public abstract class Player {
         return value;
     }
 
-    public abstract Line getNextMove(final Board board, int color );
+    public abstract Line getNextMove(final Board board, int color, int depth );
 	
 }

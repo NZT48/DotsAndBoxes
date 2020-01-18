@@ -11,7 +11,7 @@ public class Main {
 
 	private Player getSolver(int level) {
         if(level == 1) return new EasyComputer();
-        //else if(level == 2) return new GreedySolver();
+        else if(level == 2) return new MediumComputer();
         //else if(level == 3) return new MinimaxSolver();
         //else if(level == 4) return new AlphaBetaSolver();
         //else if(level == 5) return new MCSolver();
@@ -24,14 +24,14 @@ public class Main {
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	this.m = 4;
     	this.n = 4;
-    	redPlayer = null;
-    	bluePlayer = getSolver(1);
+    	redPlayer = getSolver(1);
+    	bluePlayer = getSolver(2);
     	new Game(frame, m, n, redPlayer, bluePlayer);
     }
 
 	public static void main(String[] args) {
-		new Main();
-		//new StartPage();
+		//new Main();
+		new StartPage();
 	}
 
 }

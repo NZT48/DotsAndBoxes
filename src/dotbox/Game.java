@@ -19,6 +19,7 @@ public class Game {
 	private int n, m;
 	private Board board;
 	private int turn;
+	private int depth;
 	
 	//Gui parts
 	private JFrame jf;
@@ -41,6 +42,7 @@ public class Game {
 		this.n = n;
 		this.redPlayer = redSolver;
 		this.bluePlayer = blueSolver;
+		this.depth = 3; // ------- srediti ovaj deo da se lepo preuzma
 		startGame();
 	}
 	
@@ -143,7 +145,7 @@ public class Game {
         jf.pack();
         
         jf.add(mainPanel);
-		jf.setSize(400,400);
+		jf.setSize(boardWidth*3,boardWidth*3);
 		jf.setLocationRelativeTo(null);
 		jf.setVisible(true);
 		
@@ -318,7 +320,7 @@ public class Game {
             }
             else {
             	mouseEnabled = false;
-            	processMove(onTurn.getNextMove(board, turn));
+            	processMove(onTurn.getNextMove(board, turn, depth));
             }
             try {
                 Thread.sleep(100);
