@@ -5,10 +5,11 @@ import javax.swing.*;
 
 
 import java.awt.event.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 
@@ -23,10 +24,11 @@ public class Game {
 	private Board board;
 	private int turn;
 	private int depth;
+	
 	private boolean readFile;
-	
 	private PrintWriter writer;
-	
+	private File file = null;
+	private Scanner sc = null;
 	
 	//Gui parts
 	private JFrame jf;
@@ -37,12 +39,14 @@ public class Game {
 	
 	//for mouse
 	private boolean mouseEnabled;
+	private boolean stepByStep;
+	private boolean goNextStep;
 	
 	//for computer
 	private Player onTurn, redPlayer, bluePlayer;
 	
 	
- 	public Game(JFrame frame, int m, int n, Player redSolver, Player blueSolver, int depth, boolean readFile) {
+ 	public Game(JFrame frame, int m, int n, Player redSolver, Player blueSolver, int depth, boolean readFile, boolean stepByStep) {
 		this.jf = frame;
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.m = m;
@@ -51,10 +55,37 @@ public class Game {
 		this.bluePlayer = blueSolver;
 		this.depth = depth;
 		this.readFile = readFile;
+		this.file = null;
+		this.sc = null;
+		
+		if(redPlayer != null && bluePlayer != null)
+			this.stepByStep = stepByStep;
+		else this.stepByStep = false;
+		this.goNextStep = false;
+		
 		startGame();
 	}
 	
 	private void startGame() {
+		
+		if(readFile) {
+			file = new File("input.txt"); 
+			try {
+				sc = new Scanner(file);
+				
+				if(sc.hasNextLine()) {
+					String data = sc.nextLine();
+					//System.out.println(data + " "+ data.charAt(0) + "  "+ data.charAt(2));
+					m = Character.getNumericValue(data.charAt(0));
+					n = Character.getNumericValue(data.charAt(2));
+					
+				}
+				
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			} 
+			
+		}
 		
 		board = new Board(m,n);
 		int boardWidth = n * size + (n-1) *dist;
@@ -63,10 +94,12 @@ public class Game {
 		
 		try {
 			writer = new PrintWriter("output.txt", "UTF-8");
-			writer.println((m-1) + " " + (n-1));
+			writer.println((m) + " " + (n));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 		
 		
 		//Glavni panel na koji se sve nadodaje
@@ -92,7 +125,13 @@ public class Game {
         statusLabel.setForeground(Color.RED);
         bottomPanel.add(statusLabel, BorderLayout.NORTH);
 
-	
+        
+     // Ubacivanej dugmeta za step by step
+        if(stepByStep) {
+     		JButton nextBtn = new JButton("Next");
+     		nextBtn.addActionListener(e -> {goNextStep = true;});
+     		bottomPanel.add(nextBtn, BorderLayout.CENTER);
+        }
         // Ubacivanej dugmeta za izlaz
 		JButton endButton = new JButton("End");
 		endButton.addActionListener(e  -> {writer.close(); System.exit(0);});
@@ -172,12 +211,40 @@ public class Game {
 		jf.setLocationRelativeTo(null);
 		jf.setVisible(true);
 		
+		
+		if(readFile) {
+			String data = null;
+			while(sc.hasNextLine()) {
+				data = sc.nextLine();
+				data = data.substring(0, 2);
+	            processMove(convertFrom(data));
+			}
+		}
 
-		// Krece igra
 		manageGame();
 		
 		writer.close();
+		
 	}
+	
+
+	
+	private Line convertFrom(String data) {
+		int x = 0, y = 0;
+		boolean horizontal = false;
+
+		if(Character.isAlphabetic(data.charAt(0))) {
+			x = Character.getNumericValue(data.charAt(0)) - Character.getNumericValue('A');
+			y =  Character.getNumericValue(data.charAt(1));
+		}else {
+			horizontal = true;
+			x = Character.getNumericValue(data.charAt(0));
+			y =  Character.getNumericValue(data.charAt(1)) - Character.getNumericValue('A');
+		}
+		//System.out.println("\n The value of x and y is : " + xx + " " +yy);
+		return new Line(x , y, horizontal);
+	}
+
 	
 	/* Pravljenje manjih grafickih komponenti */
 
@@ -343,9 +410,9 @@ public class Game {
 		
 		int afterScore = turn == Board.RED ? board.getRedScore() :board.getBlueScore();
 
-		if(beforeScore < afterScore) {
+		if(beforeScore < afterScore)
 			writer.println(convertTo(source, true));
-		} else 
+		else 
 			writer.println(convertTo(source, false));
 
         
@@ -389,6 +456,15 @@ public class Game {
             }
             else {
             	mouseEnabled = false;
+            	if(stepByStep) {
+	            	while(!goNextStep)
+	            		try {
+	                        Thread.sleep(100);
+	                    } catch (InterruptedException e) {
+	                        e.printStackTrace();
+	                    }
+	            	goNextStep = false;
+            	}
             	processMove(onTurn.getNextMove(board, turn, depth));
             }
             try {

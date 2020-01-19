@@ -16,6 +16,7 @@ public class Main extends JPanel{
 	private static boolean start;
 	private static int depth;
 	private static boolean readFromFile;
+	private static boolean enStepByStep;
 	
 	private JComboBox<String> redPlayerSelector;
     private JComboBox<String> bluePlayerSelector;
@@ -24,6 +25,7 @@ public class Main extends JPanel{
     private JLabel jcomp5;
     private JLabel jcomp6;
     private JCheckBox loadFile;
+    private JCheckBox stepByStep;
     private JLabel jcomp8;
     private JComboBox<Integer> treeDepth;
     private JLabel jcomp10;
@@ -54,6 +56,7 @@ public class Main extends JPanel{
             bluePlayer = getSolver(bIndex);
             
             readFromFile = loadFile.isSelected();
+            enStepByStep = stepByStep.isSelected();
             //if(readFromFile) System.out.println("The value for loading file is set" );
             
             start = true;
@@ -77,6 +80,7 @@ public class Main extends JPanel{
         jcomp5 = new JLabel ("Blue Player :");
         jcomp6 = new JLabel ("Red Player :");
         loadFile = new JCheckBox ("Load moves from file");
+        stepByStep = new JCheckBox ("Enable step by step");
         jcomp8 = new JLabel ("Tree depth if used medium or hard opponent:");
         treeDepth = new JComboBox<Integer>(treeDepthItems);
         jcomp10 = new JLabel ("Table width :");
@@ -96,6 +100,7 @@ public class Main extends JPanel{
         add (jcomp5);
         add (jcomp6);
         add (loadFile);
+        add (stepByStep);
         add (jcomp8);
         add (treeDepth);
         add (jcomp10);
@@ -107,10 +112,11 @@ public class Main extends JPanel{
         redPlayerSelector.setBounds (50, 140, 150, 25);
         bluePlayerSelector.setBounds (260, 140, 150, 25);
         DotsAndBox.setBounds (170, 10, 200, 40);
-        startBtn.setBounds (80, 290, 310, 65);
+        startBtn.setBounds (80, 310, 310, 65);
         jcomp5.setBounds (260, 120, 100, 25);
         jcomp6.setBounds (50, 120, 100, 25);
         loadFile.setBounds (100, 250, 250, 30);
+        stepByStep.setBounds(100, 280, 250, 30);
         jcomp8.setBounds (50, 180, 340, 30);
         treeDepth.setBounds (150, 210, 100, 25);
         jcomp10.setBounds (50, 60, 100, 25);
@@ -153,7 +159,7 @@ public class Main extends JPanel{
                 e.printStackTrace();
             }
         }
-        new Game(frameStart, m, n, redPlayer, bluePlayer, depth, readFromFile);
+        new Game(frameStart, m, n, redPlayer, bluePlayer, depth, readFromFile, enStepByStep);
 	}
 
 }

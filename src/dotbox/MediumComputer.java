@@ -18,7 +18,7 @@ public class MediumComputer extends Player {
         
         for(int i = 0; i<moveCount; i++) {
             Board nextBoard = board.getNewBoard(moves.get(i), color);
-            if(nextBoard.getScore(color) > board.getScore(color)) { 
+            if(nextBoard.getBoxCount(4) > board.getBoxCount(4)) { 
             	nextMove = i;
             	break; // mozemo da zatvorimo pravougaonik
             }

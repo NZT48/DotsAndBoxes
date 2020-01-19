@@ -13,9 +13,10 @@ public class EasyComputer extends Player {
         int moveCount = moves.size();
         int nextMove = -1;
         
-        for(int i=0;i<moveCount;i++) {
+        for(int i =  0; i < moveCount; i++) {
             Board nextBoard = board.getNewBoard(moves.get(i), color);
-            if(nextBoard.getScore(color) > board.getScore(color)) nextMove = i;
+            if(nextBoard.getBoxCount(4) > board.getBoxCount(4))// nextMove = i;
+            	return moves.get(i);
         }
 
         if(nextMove == -1)
