@@ -1,16 +1,15 @@
-package dotbox;
+package etf.dotsandboxes.tn160392d;
 
 public class Line {
-	
+
 	private int x, y;
 	private boolean horizontal;
-	
+
 	public Line() {
 		x = y = -1;
 		horizontal = false;
 	}
-	
-	
+
 	public Line(int x, int y, boolean horizontal) {
 		super();
 		this.x = x;
@@ -22,16 +21,12 @@ public class Line {
 		return x;
 	}
 
-
 	public int getY() {
 		return y;
 	}
 
-
 	public boolean isHorizontal() {
 		return horizontal;
 	}
-
-	
 
 }
