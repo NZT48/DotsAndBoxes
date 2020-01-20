@@ -1,5 +1,23 @@
-3 3
-0A //Prvi igrac povlaci liniju
-A0 //Drugi igrac povlaci liniju
-0B //Prvi igrac povlaci liniju
-A2 //Drugi igrac povlaci liniju
+6 6
+D0 //Prvi igrac povlaci liniju
+0D //Drugi igrac povlaci liniju
+D4 //Prvi igrac povlaci liniju
+1A //Drugi igrac povlaci liniju
+5B //Prvi igrac povlaci liniju
+0A //Drugi igrac povlaci liniju
+3D //Prvi igrac povlaci liniju
+0E //Drugi igrac povlaci liniju
+E2 //Prvi igrac povlaci liniju
+1C //Drugi igrac povlaci liniju
+C2 //Prvi igrac povlaci liniju
+1E //Drugi igrac povlaci liniju
+3C //Prvi igrac povlaci liniju
+2D //Drugi igrac povlaci liniju
+1D //Prvi igrac povlaci liniju
+0B //Drugi igrac povlaci liniju
+D2 //Prvi igrac povlaci liniju
+5A //Drugi igrac povlaci liniju
+3A //Prvi igrac povlaci liniju
+C5 //Drugi igrac povlaci liniju
+B2 //Prvi igrac povlaci liniju
+5D //Drugi igrac povlaci liniju

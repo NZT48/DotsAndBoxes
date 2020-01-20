@@ -1,50 +1,61 @@
-5 6
-B0 //Prvi igrac povlaci liniju
-C5 //Drugi igrac povlaci liniju
-D1 //Prvi igrac povlaci liniju
-3E //Drugi igrac povlaci liniju
-0B //Prvi igrac povlaci liniju
-D3 //Drugi igrac povlaci liniju
-C1 //Prvi igrac povlaci liniju
-3A //Drugi igrac povlaci liniju
+6 6
+D0 //Prvi igrac povlaci liniju
+0D //Drugi igrac povlaci liniju
 D4 //Prvi igrac povlaci liniju
-A5 //Drugi igrac povlaci liniju
-A1 //Prvi igrac povlaci liniju
 1A //Drugi igrac povlaci liniju
-C2 //Prvi igrac povlaci liniju
+5B //Prvi igrac povlaci liniju
+0A //Drugi igrac povlaci liniju
+3D //Prvi igrac povlaci liniju
+0E //Drugi igrac povlaci liniju
+E2 //Prvi igrac povlaci liniju
 1C //Drugi igrac povlaci liniju
-A4 //Prvi igrac povlaci liniju
-4C //Drugi igrac povlaci liniju
-B3 //Prvi igrac povlaci liniju
-0C //Drugi igrac povlaci liniju
-2D //Prvi igrac povlaci liniju
-C3 //Drugi igrac povlaci liniju
-0D //Prvi igrac povlaci liniju
-4B //Drugi igrac povlaci liniju
-B5 //Prvi igrac povlaci liniju
-D5 //Drugi igrac povlaci liniju
-4E //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
+C2 //Prvi igrac povlaci liniju
+1E //Drugi igrac povlaci liniju
+3C //Prvi igrac povlaci liniju
+2D //Drugi igrac povlaci liniju
+1D //Prvi igrac povlaci liniju
+0B //Drugi igrac povlaci liniju
 D2 //Prvi igrac povlaci liniju
-3B //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
-2B //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
-3C //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
-2C //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
-B2 //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
-D0 //Drugi igrac povlaci liniju
+5A //Drugi igrac povlaci liniju
+3A //Prvi igrac povlaci liniju
+C5 //Drugi igrac povlaci liniju
+B2 //Prvi igrac povlaci liniju
+5D //Drugi igrac povlaci liniju
+1B //Prvi igrac povlaci liniju
+5E //Drugi igrac povlaci liniju
+3E //Prvi igrac povlaci liniju
+C0 //Drugi igrac povlaci liniju
+0C //Prvi igrac povlaci liniju
+E4 //Drugi igrac povlaci liniju
+B5 //Prvi igrac povlaci liniju
+3B //Drugi igrac povlaci liniju
+5C //Prvi igrac povlaci liniju
+E0 //Drugi igrac povlaci liniju
+B0 //Prvi igrac povlaci liniju
+E5 //Drugi igrac povlaci liniju
+4E //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
+D5 //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
+E3 //Prvi igrac povlaci liniju
+4C //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
+4D //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
+D3 //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
+E1 //Drugi igrac povlaci liniju
 4A //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
+4B //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
+D1 //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
 C4 //Prvi igrac povlaci liniju
 2E //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
-3D //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
-4D //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
-C0 //Drugi igrac povlaci liniju
+B4 //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
+B3 //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
+2C //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
+C3 //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
+C1 //Drugi igrac povlaci liniju
 2A //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
+2B //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
 B1 //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
-1B //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
-A2 //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
-A3 //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
-1D //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
-B4 //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
-1E //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
-0E //Prvi igrac povlaci liniju, formira kvadrat i igra ponovo
-A0 //Prvi igrac povlaci liniju
-0A //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
+A5 //Prvi igrac povlaci liniju
+A4 //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
+A3 //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
+A2 //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
+A1 //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo
+A0 //Drugi igrac povlaci liniju, formira kvadrat i igra ponovo

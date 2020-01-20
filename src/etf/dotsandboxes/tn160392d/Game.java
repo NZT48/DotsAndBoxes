@@ -16,29 +16,30 @@ public class Game {
 	private final static int size = 10;
 	private final static int dist = 40;
 
+	// Main game parts
 	private int n, m;
 	private Board board;
 	private int turn;
 	private int depth;
-
+	private Player onTurn, redPlayer, bluePlayer;
+	
+	// IO parts
 	private boolean readFile;
 	private PrintWriter writer = null;
 	private File file = null;
 	private Scanner sc = null;
 
-	// Gui parts
+	// GUI parts
 	private JFrame jf;
 	private JLabel redScoreLabel, blueScoreLabel, statusLabel;
 	private JLabel[][] hLines, vLines, box;
 	private boolean[][] isSetHLines, isSetVLines;
-
-	// for mouse
 	private boolean mouseEnabled;
+	
+	// Step by step mode parts
 	private boolean stepByStep;
 	private boolean goNextStep;
 
-	// for computer
-	private Player onTurn, redPlayer, bluePlayer;
 
 	public Game(JFrame frame, int m, int n, Player redPlayer, Player bluePlayer, int depth, boolean readFile,
 			boolean stepByStep) {
@@ -73,52 +74,35 @@ public class Game {
 		turn = Board.RED;
 		onTurn = redPlayer;
 		
-		JPanel mainPanel = new JPanel(new BorderLayout());
 
+		JPanel mainPanel = new JPanel(new BorderLayout());
 		
+		// Score panel - contains player names and theri scores
 		JPanel score = new JPanel(new GridLayout(2, 2));
+		
 		score.add(new JLabel("Red score:"));
 		score.add(new JLabel("Blue score:"));
+		
 		redScoreLabel = new JLabel("0");
 		redScoreLabel.setForeground(Color.RED);
 		blueScoreLabel = new JLabel("0");
 		blueScoreLabel.setForeground(Color.BLUE);
+		
 		score.add(redScoreLabel);
 		score.add(blueScoreLabel);
+		
 		mainPanel.add(score, BorderLayout.NORTH);
 
-		
+		// Status panel - contains end button, status of game and possible on more button
 		JPanel statusPanel = new JPanel(new BorderLayout());
-
+		
 		// Adding status label
 		statusLabel = new JLabel("Player-1's Turn...");
 		statusLabel.setForeground(Color.RED);
 		statusPanel.add(statusLabel, BorderLayout.NORTH);
-		// Adding next button for step by step mode
-		if (stepByStep) {
-			JButton nextBtn = new JButton("Next");
-			nextBtn.addActionListener(e -> {
-				goNextStep = true;
-			});
-			statusPanel.add(nextBtn, BorderLayout.CENTER);
-			
-			JDialog heuristicsDialog = new JDialog(jf, "Heuristics for previous move");
-			
-			
-			JTextArea heuristicsDisplay = new JTextArea(5, 20);
-			redPlayer.setTextArea(heuristicsDisplay);
-			bluePlayer.setTextArea(heuristicsDisplay);
-			heuristicsDialog.add(heuristicsDisplay);
-			heuristicsDialog.setSize(300,400);
-			//heuristicsDialog.setLocationRelativeTo(jf);
-			heuristicsDialog.setLocation(800,500);
-			heuristicsDialog.setVisible(true);
-			
-			//statusPanel.add(heuristicsDisplay, BorderLayout.SOUTH);
-
-		}
-		// Adding end button
-		JButton endButton = new JButton("End");
+		
+		// Adding end and save moves button
+		JButton endButton = new JButton("End and save moves to file");
 		endButton.addActionListener(e -> {
 			writer.close();
 			System.exit(0);
@@ -128,8 +112,30 @@ public class Game {
 		mainPanel.add(statusPanel, BorderLayout.SOUTH);
 		
 		
-		
+		// Creating additional components for step by step mode
+		if (stepByStep) {
+			// Creating button for next move
+			JButton nextBtn = new JButton("Next");
+			nextBtn.addActionListener(e -> {
+				goNextStep = true;
+			});
+			statusPanel.add(nextBtn, BorderLayout.CENTER);
+			
+			// Creating dialog for displaying heuristics
+			JDialog heuristicsDialog = new JDialog(jf, "Heuristics for previous move");
+			JTextArea heuristicsDisplay = new JTextArea(5, 20);
+			
+			redPlayer.setTextArea(heuristicsDisplay);
+			bluePlayer.setTextArea(heuristicsDisplay);
+			
+			heuristicsDialog.add(heuristicsDisplay);
+			heuristicsDialog.setSize(300,400);
+			heuristicsDialog.setLocation(800,500);
+			heuristicsDialog.setVisible(true);
+			
+		}
 
+		// Grid - panel for game board
 		JPanel grid = new JPanel(new GridBagLayout());
 
 		GridBagConstraints constraints = new GridBagConstraints();
@@ -145,6 +151,7 @@ public class Game {
 
 		box = new JLabel[m - 1][n - 1];
 
+		// Creating of game board
 		for (int i = 0; i < (2 * m - 1); i++) {
 			JPanel pane = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 			if (i % 2 == 0) {
@@ -170,7 +177,8 @@ public class Game {
 
 		++constraints.gridy;
 		grid.add(getEmptyLabel(new Dimension(2 * (n * size + (n - 1) * dist), 10)), constraints);
-
+		
+		// Add game board to mainPanel
 		mainPanel.add(grid, BorderLayout.CENTER);
 
 		jf.getContentPane().removeAll();
@@ -180,22 +188,22 @@ public class Game {
 		jf.setContentPane(mainPanel);
 		jf.pack();
 
-		//jf.setLocationRelativeTo(null);
 		jf.setLocation(500,500);
 		jf.setVisible(true);
 
 		if (readFile) {
-			readFromFile(); // Reads moves and executes them
+			// Reads moves and executes them
+			readFromFile();
 		}
 
-		// Main thread of game
-		manageGame();
+		// Function that controls who will play next
+		gameControl();
 
 		closeOpenedFiles();
 		
 	}
 
-	private void manageGame() {
+	private void gameControl() {
 		
 		while (!board.isComplete()) {
 			
@@ -291,7 +299,6 @@ public class Game {
 	}
 
 	// Opens file and reads board dimensions
-	
 	private void startReadFromFile() {
 		file = new File("input.txt");
 		try {
@@ -309,7 +316,6 @@ public class Game {
 	}
 	
 	// Read from file and execute moves
-	
 	private void readFromFile() {
 		String data = null;
 		while (sc.hasNextLine()) {
@@ -320,7 +326,6 @@ public class Game {
 	}
 	
 	// Open file and write board dimensions in number of dots
-	
 	private void startWriteToFile() {
 		try {
 			writer = new PrintWriter("output.txt", "UTF-8");
@@ -330,8 +335,7 @@ public class Game {
 		}
 	}
 	
-	// Close o
-	
+	// Close files opened for reading and writing
 	private void closeOpenedFiles() {
 		if(writer != null)
 			writer.close();
@@ -340,7 +344,6 @@ public class Game {
 	}
 	
 	// Method that convert line to output format move
-	
 	private String convertTo(Line line, Boolean squareFormed) {
 		StringBuilder sb = new StringBuilder();
 		if (line.isHorizontal()) {
@@ -371,7 +374,6 @@ public class Game {
 	}
 
 	// Method that converts input format move to line
-	
 	private Line convertFrom(String data) {
 		int x = 0, y = 0;
 		boolean horizontal = false;
@@ -388,10 +390,6 @@ public class Game {
 	}
 
 	// Methods that make GUI components for board
-	
-	
-	// Methods that create GUI components for board
-	
 	
 	private JLabel getEmptyLabel(Dimension d) {
 		JLabel label = new JLabel();

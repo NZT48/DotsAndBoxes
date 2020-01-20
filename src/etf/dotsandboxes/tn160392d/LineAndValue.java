@@ -1,16 +1,17 @@
 package etf.dotsandboxes.tn160392d;
 
 public class LineAndValue {
+	
 	@SuppressWarnings("unused")
 	private Line line;
-	private int Value;
+	private int value;
 
-	LineAndValue(Line line, int w) {
+	LineAndValue(Line line, int value) {
 		this.line = line;
-		Value = w;
+		this.value = value;
 	}
 
 	public int getValue() {
-		return Value;
+		return value;
 	}
 }

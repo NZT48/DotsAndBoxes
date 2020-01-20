@@ -18,7 +18,7 @@ public class Main extends JPanel {
 	private static boolean readFromFile;
 	private static boolean enStepByStep;
 
-	// Gui components
+	// GUI components
 	private JComboBox<String> redPlayerSelector;
 	private JComboBox<String> bluePlayerSelector;
 	private JLabel DotsAndBox;
@@ -67,13 +67,13 @@ public class Main extends JPanel {
 
 	public Main() {
 	
-		// construct preComponents
+		// Construct preComponents
 		String[] players = { "Human", "Beginner", "Advanced", "Competative" };
 		Integer[] treeDepthItems = { 1, 2, 3, 4, 5, 6, 7, 8 };
 		Integer[] tWidthItems = { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 		Integer[] tHeightItems = { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
-		// construct components
+		// Construct components
 		redPlayerSelector = new JComboBox<String>(players);
 		bluePlayerSelector = new JComboBox<String>(players);
 		DotsAndBox = new JLabel("Dots and Boxes");
@@ -89,11 +89,11 @@ public class Main extends JPanel {
 		tWidth = new JComboBox<Integer>(tWidthItems);
 		tHeight = new JComboBox<Integer>(tHeightItems);
 
-		// adjust size and set layout
+		// Adjust size and set layout
 		setPreferredSize(new Dimension(448, 379));
 		setLayout(null);
 
-		// add components
+		// Add components
 		add(redPlayerSelector);
 		add(bluePlayerSelector);
 		add(DotsAndBox);
@@ -109,7 +109,7 @@ public class Main extends JPanel {
 		add(tWidth);
 		add(tHeight);
 
-		// set component bounds (only needed by Absolute Positioning)
+		// Set component bounds (only needed by Absolute Positioning)
 		redPlayerSelector.setBounds(50, 140, 150, 25);
 		bluePlayerSelector.setBounds(260, 140, 150, 25);
 		DotsAndBox.setBounds(170, 10, 200, 40);

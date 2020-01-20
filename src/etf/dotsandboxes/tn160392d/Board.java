@@ -46,12 +46,12 @@ public class Board {
 
     public ArrayList<Line> getAvailableMoves() {
         ArrayList<Line> ret = new ArrayList<Line>();
-        for(int i=0; i<m;i++)
-            for(int j=0; j<(n-1); j++)
+        for(int i = 0; i < m;i++)
+            for(int j = 0; j < (n-1); j++)
                 if(hLines[i][j] == BLANK)
                     ret.add(new Line(i,j,true));
-        for(int i=0; i<(m-1); i++)
-            for(int j=0; j<n; j++)
+        for(int i = 0; i < (m-1); i++)
+            for(int j = 0; j < n; j++)
                 if(vLines[i][j] == BLANK)
                     ret.add(new Line(i,j,false));
         return ret;
@@ -66,6 +66,7 @@ public class Board {
         return ret;
     }
     
+    // Get number of lines of box at given location
     private int getLinesCount(int i, int j) {
         int count = 0;
         if(hLines[i][j] == BLACK) count++;
@@ -75,10 +76,11 @@ public class Board {
         return count;
     }
     
+    // Get number of boxes with nSides number of lines
 	public int getBoxCount(int nSides) {
         int count = 0;
-        for(int i=0; i<(m-1); i++)
-            for(int j=0; j<(n-1); j++) {
+        for(int i = 0; i < (m-1); i++)
+            for(int j = 0; j < (n-1); j++) {
                 if(getLinesCount(i, j) == nSides)
                     count++;
             }
@@ -89,7 +91,7 @@ public class Board {
 		hLines[x][y] = BLACK;
 		ArrayList<Point> ret = new ArrayList<Point>();
 		// Check if the square below is closed
-		if(x < (m-1) && vLines[x][y]== BLACK && vLines[x][y+1] == BLACK && hLines[x+1][y] == BLACK) {
+		if(x < (m-1) && vLines[x][y] == BLACK && vLines[x][y+1] == BLACK && hLines[x+1][y] == BLACK) {
 			boxes[x][y] = turn;
 			ret.add(new Point(x,y));
 			if(turn == RED) redScore++;
@@ -110,7 +112,7 @@ public class Board {
 		vLines[x][y] = BLACK;
 		ArrayList<Point> ret = new ArrayList<Point>();
 		// Check if the right square is closed
-		if(y < (n-1) && hLines[x][y]== BLACK && hLines[x+1][y] == BLACK && vLines[x][y+1] == BLACK) {
+		if(y < (n-1) && hLines[x][y] == BLACK && hLines[x+1][y] == BLACK && vLines[x][y+1] == BLACK) {
 			boxes[x][y] = turn;
 			ret.add(new Point(x,y));
 			if(turn == RED) redScore++;
@@ -127,9 +129,10 @@ public class Board {
 		return ret;
 	}
 	
+	// Fill all elements of array with given value
 	private void fill(int[][] array, int val) {
-        for(int i=0; i<array.length; i++)
-            for(int j=0; j<array[i].length; j++)
+        for(int i = 0; i < array.length; i++)
+            for(int j = 0; j < array[i].length; j++)
                 array[i][j]=val;
     }
 
@@ -139,19 +142,20 @@ public class Board {
 		} else return false;
 	}
    
+	// Used for get next board
     public Board clone() {
         Board cloned = new Board(m,n);
 
-        for(int i=0; i<(m); i++)
-            for(int j=0; j<(n-1); j++)
+        for(int i = 0; i < (m); i++)
+            for(int j = 0; j < (n-1); j++)
                 cloned.hLines[i][j] = hLines[i][j];
 
-        for(int i=0; i<(m-1); i++)
-            for(int j=0; j<(n); j++)
+        for(int i = 0; i < (m-1); i++)
+            for(int j = 0; j < (n); j++)
                 cloned.vLines[i][j] = vLines[i][j];
 
-        for(int i=0; i<(m-1); i++)
-            for(int j=0; j<(n-1); j++)
+        for(int i = 0; i < (m-1); i++)
+            for(int j = 0; j < (n-1); j++)
                 cloned.boxes[i][j] = boxes[i][j];
 
         cloned.redScore = redScore;
@@ -160,16 +164,4 @@ public class Board {
         return cloned;
     }
     
-	/*public int getScore(int color) {
-	if(color == RED) return blueScore;
-    else return blueScore;
-	}*/
-
-    public static int changeColor(int color) {
-        if(color == RED)
-            return BLUE;
-        else
-            return RED;
-    }
-
 }
