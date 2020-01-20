@@ -110,8 +110,9 @@ public class HardComputer extends MiniMaxPlayer {
 
 		return moves.get(nextMove);
 	}
-
-	LineAndValue alphabeta(Board board, int depth, int a, int b, boolean max, int color) {
+    
+    @Override
+	protected LineAndValue alphabeta(Board board, int depth, int a, int b, boolean max, int color) {
 
 		ArrayList<Line> moves = board.getAvailableMoves();
 		int moveCount = moves.size();

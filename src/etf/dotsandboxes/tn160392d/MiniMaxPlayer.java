@@ -19,4 +19,6 @@ public abstract class MiniMaxPlayer implements Player{
     
 	public abstract Line getNextMove(Board board, int color, int depth);
 	
+	protected abstract LineAndValue alphabeta(Board board, int depth, int a, int b, boolean max, int color);
+
 }
