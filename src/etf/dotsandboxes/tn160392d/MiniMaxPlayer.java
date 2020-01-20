@@ -2,11 +2,18 @@ package etf.dotsandboxes.tn160392d;
 
 import java.util.ArrayList;
 
+import javax.swing.JTextArea;
+
 public abstract class MiniMaxPlayer implements Player{
 	
 	final static int MIN = -1000000000, MAX = 1000000000;
 
     protected int referenceColor;
+    private JTextArea hWindow = null;
+    
+    public void setTextArea(JTextArea jta) {
+    	hWindow = jta;
+    }
 
     protected abstract int heuristic(final Board board, int color);
     
@@ -19,24 +26,48 @@ public abstract class MiniMaxPlayer implements Player{
 		int nextMove = -1;
 		int bestScore = MIN;
 		int flagThree = -1;
+		StringBuilder sb = null;
+		
+		if(hWindow != null) {
+			sb = new StringBuilder();
+		}
 
+		ArrayList<Integer> sameScores = new ArrayList<Integer>();
+
+		
 		for (int i = 0; i < moveCount; i++) {
 			Board nextBoard = board.getNewBoard(moves.get(i), color);
 			if (nextBoard.getBoxCount(4) > board.getBoxCount(4)) {
 				nextMove = i;
+				if(hWindow != null)  sb.append("\nClosing the box with move "+ Player.convertToOutput(moves.get(i)));
 				break; // Break because we can close the box
 			}
 			if (nextBoard.getBoxCount(3) > board.getBoxCount(3)) {
 				flagThree = i;
+				if(hWindow != null)  sb.append("\nMove is adding third line " + Player.convertToOutput(moves.get(i)));
 				continue;
 			}
 			LineAndValue tmp = alphabeta(nextBoard, depth, MIN, MAX, false, color);
+			if(hWindow != null)  sb.append("\nHeuristics of move: "+ Player.convertToOutput(moves.get(i)) + " is " + tmp.getValue());
 			if (tmp.getValue() > bestScore) {
 				nextMove = i;
 				bestScore = tmp.getValue();
+				sameScores.clear();
+				sameScores.add(i);
+			} else if(tmp.getValue() == bestScore) {
+				sameScores.add(i);
 			}
 		}
-
+		
+		if( sameScores.size() > 1) {
+			int x = (int) (Math.random() * sameScores.size());
+			nextMove = sameScores.get(x);
+		}
+		
+		if(hWindow != null) {
+			hWindow.setText(sb.toString());
+		}
+		
 		// If there is no other move, we play a move where we add third line to box
 		if (nextMove == -1) {
 			nextMove = flagThree;

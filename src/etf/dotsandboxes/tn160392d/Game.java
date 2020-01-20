@@ -101,6 +101,21 @@ public class Game {
 				goNextStep = true;
 			});
 			statusPanel.add(nextBtn, BorderLayout.CENTER);
+			
+			JDialog heuristicsDialog = new JDialog(jf, "Heuristics for previous move");
+			
+			
+			JTextArea heuristicsDisplay = new JTextArea(5, 20);
+			redPlayer.setTextArea(heuristicsDisplay);
+			bluePlayer.setTextArea(heuristicsDisplay);
+			heuristicsDialog.add(heuristicsDisplay);
+			heuristicsDialog.setSize(300,400);
+			//heuristicsDialog.setLocationRelativeTo(jf);
+			heuristicsDialog.setLocation(800,500);
+			heuristicsDialog.setVisible(true);
+			
+			//statusPanel.add(heuristicsDisplay, BorderLayout.SOUTH);
+
 		}
 		// Adding end button
 		JButton endButton = new JButton("End");
@@ -111,6 +126,9 @@ public class Game {
 		statusPanel.add(endButton, BorderLayout.SOUTH);
 
 		mainPanel.add(statusPanel, BorderLayout.SOUTH);
+		
+		
+		
 
 		JPanel grid = new JPanel(new GridBagLayout());
 
@@ -162,7 +180,8 @@ public class Game {
 		jf.setContentPane(mainPanel);
 		jf.pack();
 
-		jf.setLocationRelativeTo(null);
+		//jf.setLocationRelativeTo(null);
+		jf.setLocation(500,500);
 		jf.setVisible(true);
 
 		if (readFile) {
