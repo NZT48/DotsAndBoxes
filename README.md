@@ -1,7 +1,9 @@
 # Dots and Boxes
-### Project for university course Intelligent Systems 2019
+### Project for university course Intelligent Systems, School of Electrical Engineering, University of Belgrade
 
 * Java implementation of popular game Dots and Boxes with 3 levels of computer players. Computer players (AI) uses minimax algorithm with alpha-beta pruning and with different heuristics for different players.
+
+* Intelligent systems course [website](http://ri4es.etf.rs/predavanja.html)
 
 ## Screenshots
 
